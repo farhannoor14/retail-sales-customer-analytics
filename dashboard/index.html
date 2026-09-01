@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retail Sales & Customer Analytics Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8;color:#1f2937}.wrap{max-width:1200px;margin:auto;padding:28px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.head h1{margin:0 0 6px;font-size:28px}.muted{color:#667085}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:white;border-radius:12px;padding:18px;box-shadow:0 2px 10px #00000010}.label{font-size:13px;color:#667085}.value{font-size:25px;font-weight:700;margin-top:7px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.chart{background:white;border-radius:12px;padding:18px;height:330px}.chart h3{margin:0 0 10px;font-size:16px}.chart canvas{max-height:270px}.insights{margin-top:16px;background:white;border-radius:12px;padding:18px}.insights li{margin:8px 0}@media(max-width:800px){.cards,.grid{grid-template-columns:1fr}.head{display:block}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="head"><div><h1>Retail Sales & Customer Analytics</h1><div class="muted">Portfolio dashboard | Synthetic demonstration dataset</div></div></div>
+<div class="cards">
+<div class="card"><div class="label">Total Sales</div><div class="value">₹536.8K</div></div>
+<div class="card"><div class="label">Total Profit</div><div class="value">₹151.4K</div></div>
+<div class="card"><div class="label">Orders</div><div class="value">40</div></div>
+<div class="card"><div class="label">Customers</div><div class="value">18</div></div>
+</div>
+<div class="grid">
+<div class="chart"><h3>Sales by Category</h3><canvas id="cat"></canvas></div>
+<div class="chart"><h3>Sales by City</h3><canvas id="city"></canvas></div>
+<div class="chart"><h3>Monthly Sales Trend</h3><canvas id="month"></canvas></div>
+<div class="chart"><h3>Profit by Category</h3><canvas id="profit"></canvas></div>
+</div>
+<div class="insights"><h3>Business Insights</h3><ul><li>Electronics is the strongest revenue-generating category in the sample.</li><li>Mumbai and Delhi are the leading cities by sales.</li><li>Discount levels should be evaluated against profit, not revenue alone.</li><li>Customer-level aggregation can identify high-value and repeat customers.</li></ul></div>
+</div>
+<script>
+const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+new Chart(document.getElementById('cat'),{type:'bar',data:{labels:['Electronics','Fashion','Sports','Home & Kitchen','Beauty'],datasets:[{data:[125000,90000,115000,125000,81801.75]}]},options:common});
+new Chart(document.getElementById('city'),{type:'bar',data:{labels:['Mumbai','Delhi','Hyderabad','Chennai','Bangalore','Pune'],datasets:[{data:[110000,145000,110000,90000,48000,33801.75]}]},options:common});
+new Chart(document.getElementById('month'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{data:[76000,96000,90000,112000,106000,56801.75],tension:.3}]},options:{...common,plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('profit'),{type:'doughnut',data:{labels:['Electronics','Fashion','Sports','Home & Kitchen','Beauty'],datasets:[{data:[30000,27000,28000,40000,26415.19]}]},options:{responsive:true,maintainAspectRatio:false}});
+</script>
+</body>
+</html>
