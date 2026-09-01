@@ -1,0 +1,41 @@
+Employee_ID,Department,Location,Join_Date,Status,Performance_Score,Attendance_Rate,Training_Completion,Compliance_Exceptions,Monthly_Absence_Days,Salary_Band
+E001,Technology,Pune,2022-01-17,Active,4,96,98,0,1,B
+E002,Finance,Chennai,2021-04-12,Active,5,97,100,0,0,C
+E003,Operations,Pune,2023-02-20,Active,3,91,88,1,2,A
+E004,Human Resources,Chennai,2020-09-07,Active,4,95,96,0,1,B
+E005,Risk,Pune,2022-06-13,Active,5,98,100,0,0,C
+E006,Technology,Chennai,2023-07-03,Active,3,89,82,2,3,A
+E007,Finance,Pune,2021-11-22,Active,4,94,93,0,1,B
+E008,Operations,Chennai,2022-03-14,Leaver,2,86,79,2,4,A
+E009,Risk,Pune,2020-05-18,Active,4,96,97,0,1,C
+E010,Technology,Pune,2024-01-08,Active,4,93,91,0,1,B
+E011,Finance,Chennai,2023-03-27,Active,3,90,86,1,2,A
+E012,Human Resources,Pune,2021-08-16,Active,5,98,100,0,0,C
+E013,Operations,Pune,2022-10-10,Active,4,95,94,0,1,B
+E014,Risk,Chennai,2023-05-15,Active,3,92,89,1,2,B
+E015,Technology,Chennai,2020-02-24,Active,5,97,99,0,0,C
+E016,Finance,Pune,2022-12-05,Leaver,2,84,76,3,5,A
+E017,Operations,Chennai,2021-07-19,Active,4,94,92,0,1,B
+E018,Risk,Pune,2024-02-12,Active,4,96,95,0,1,B
+E019,Human Resources,Chennai,2022-04-25,Active,3,91,87,1,2,A
+E020,Technology,Pune,2021-01-11,Active,4,95,96,0,1,C
+E021,Finance,Chennai,2020-06-29,Active,5,98,100,0,0,C
+E022,Operations,Pune,2023-09-18,Active,3,90,85,1,3,A
+E023,Risk,Chennai,2022-08-08,Active,5,97,99,0,0,C
+E024,Technology,Chennai,2024-03-04,Active,3,92,90,1,2,B
+E025,Human Resources,Pune,2020-11-16,Leaver,2,87,78,2,4,A
+E026,Finance,Pune,2023-01-23,Active,4,95,94,0,1,B
+E027,Operations,Chennai,2022-09-12,Active,4,93,91,0,1,B
+E028,Risk,Pune,2021-03-01,Active,5,99,100,0,0,C
+E029,Technology,Pune,2023-11-06,Active,3,90,84,2,3,A
+E030,Finance,Chennai,2022-05-09,Active,4,96,95,0,1,B
+E031,Operations,Pune,2020-01-20,Active,5,97,98,0,0,C
+E032,Risk,Chennai,2024-04-15,Active,3,91,88,1,2,A
+E033,Human Resources,Pune,2022-07-11,Active,4,95,96,0,1,B
+E034,Technology,Chennai,2021-10-04,Active,5,98,100,0,0,C
+E035,Finance,Pune,2023-06-26,Active,3,92,87,1,2,A
+E036,Operations,Chennai,2022-02-07,Leaver,2,85,75,3,5,A
+E037,Risk,Pune,2020-12-14,Active,5,99,100,0,0,C
+E038,Technology,Pune,2022-11-28,Active,4,94,93,0,1,B
+E039,Finance,Chennai,2021-05-03,Active,4,95,96,0,1,B
+E040,Human Resources,Chennai,2023-08-21,Active,3,90,85,1,2,A
