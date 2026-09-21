@@ -3,35 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Retail Sales & Customer Analytics Dashboard</title>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8;color:#1f2937}.wrap{max-width:1200px;margin:auto;padding:28px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.head h1{margin:0 0 6px;font-size:28px}.muted{color:#667085}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:white;border-radius:12px;padding:18px;box-shadow:0 2px 10px #00000010}.label{font-size:13px;color:#667085}.value{font-size:25px;font-weight:700;margin-top:7px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.chart{background:white;border-radius:12px;padding:18px;height:330px}.chart h3{margin:0 0 10px;font-size:16px}.chart canvas{max-height:270px}.insights{margin-top:16px;background:white;border-radius:12px;padding:18px}.insights li{margin:8px 0}@media(max-width:800px){.cards,.grid{grid-template-columns:1fr}.head{display:block}}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+    color: #1f2937;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: auto;
+    padding: 28px;
+}
+
+.head {
+    margin-bottom: 22px;
+}
+
+.head h1 {
+    margin: 0 0 6px;
+    font-size: 30px;
+}
+
+.muted {
+    color: #667085;
+    font-size: 14px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 10px #00000010;
+}
+
+.label {
+    font-size: 13px;
+    color: #667085;
+}
+
+.value {
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 7px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.chart {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    height: 330px;
+}
+
+.chart h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.chart canvas {
+    max-height: 270px;
+}
+
+.insights {
+    margin-top: 16px;
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.insights h3 {
+    margin-top: 0;
+}
+
+.insights li {
+    margin: 8px 0;
+}
+
+.loading {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 800px) {
+    .cards,
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
+
 <body>
+
 <div class="wrap">
-<div class="head"><div><h1>Retail Sales & Customer Analytics</h1><div class="muted">Portfolio dashboard | Synthetic demonstration dataset</div></div></div>
-<div class="cards">
-<div class="card"><div class="label">Total Sales</div><div class="value">₹536.8K</div></div>
-<div class="card"><div class="label">Total Profit</div><div class="value">₹151.4K</div></div>
-<div class="card"><div class="label">Orders</div><div class="value">40</div></div>
-<div class="card"><div class="label">Customers</div><div class="value">18</div></div>
+
+    <div class="head">
+        <h1>Retail Sales & Customer Analytics</h1>
+        <div class="muted">
+            Interactive portfolio dashboard | Data-driven retail analysis
+        </div>
+    </div>
+
+    <div id="loading" class="loading">
+        Loading dashboard data...
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="label">Total Sales</div>
+            <div class="value" id="totalSales">-</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Total Profit</div>
+            <div class="value" id="totalProfit">-</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Orders</div>
+            <div class="value" id="totalOrders">-</div>
+        </div>
+
+        <div class="card">
+            <div class="label">Customers</div>
+            <div class="value" id="totalCustomers">-</div>
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        <div class="chart">
+            <h3>Sales by Category</h3>
+            <canvas id="categoryChart"></canvas>
+        </div>
+
+        <div class="chart">
+            <h3>Sales by City</h3>
+            <canvas id="cityChart"></canvas>
+        </div>
+
+        <div class="chart">
+            <h3>Monthly Sales Trend</h3>
+            <canvas id="monthlyChart"></canvas>
+        </div>
+
+        <div class="chart">
+            <h3>Profit by Category</h3>
+            <canvas id="profitChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="insights">
+        <h3>Business Insights</h3>
+
+        <ul id="insightsList">
+            <li>Calculating insights...</li>
+        </ul>
+    </div>
+
 </div>
-<div class="grid">
-<div class="chart"><h3>Sales by Category</h3><canvas id="cat"></canvas></div>
-<div class="chart"><h3>Sales by City</h3><canvas id="city"></canvas></div>
-<div class="chart"><h3>Monthly Sales Trend</h3><canvas id="month"></canvas></div>
-<div class="chart"><h3>Profit by Category</h3><canvas id="profit"></canvas></div>
-</div>
-<div class="insights"><h3>Business Insights</h3><ul><li>Electronics is the strongest revenue-generating category in the sample.</li><li>Mumbai and Delhi are the leading cities by sales.</li><li>Discount levels should be evaluated against profit, not revenue alone.</li><li>Customer-level aggregation can identify high-value and repeat customers.</li></ul></div>
-</div>
+
 <script>
-const common={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
-new Chart(document.getElementById('cat'),{type:'bar',data:{labels:['Electronics','Fashion','Sports','Home & Kitchen','Beauty'],datasets:[{data:[125000,90000,115000,125000,81801.75]}]},options:common});
-new Chart(document.getElementById('city'),{type:'bar',data:{labels:['Mumbai','Delhi','Hyderabad','Chennai','Bangalore','Pune'],datasets:[{data:[110000,145000,110000,90000,48000,33801.75]}]},options:common});
-new Chart(document.getElementById('month'),{type:'line',data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],datasets:[{data:[76000,96000,90000,112000,106000,56801.75],tension:.3}]},options:{...common,plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('profit'),{type:'doughnut',data:{labels:['Electronics','Fashion','Sports','Home & Kitchen','Beauty'],datasets:[{data:[30000,27000,28000,40000,26415.19]}]},options:{responsive:true,maintainAspectRatio:false}});
+
+let categoryChart;
+let cityChart;
+let monthlyChart;
+let profitChart;
+
+function parseCSV(text) {
+
+    const lines = text.trim().split(/\r?\n/);
+
+    const headers = lines[0].split(",");
+
+    return lines.slice(1).map(line => {
+
+        const values = line.split(",");
+
+        const row = {};
+
+        headers.forEach((header, index) => {
+            row[header] = values[index];
+        });
+
+        return row;
+
+    });
+
+}
+
+function formatCurrency(value) {
+    return "₹" + Number(value).toLocaleString("en-IN", {
+        maximumFractionDigits: 0
+    });
+}
+
+function formatMonth(dateString) {
+
+    const date = new Date(dateString);
+
+    return date.toLocaleString("en-US", {
+        month: "short"
+    });
+
+}
+
+async function loadDashboard() {
+
+    try {
+
+        const response = await fetch("../data/retail_sales.csv");
+
+        if (!response.ok) {
+            throw new Error("Could not load dataset.");
+        }
+
+        const csvText = await response.text();
+
+        const data = parseCSV(csvText);
+
+        /* ---------------- KPIs ---------------- */
+
+        const totalSales = data.reduce(
+            (sum, row) => sum + Number(row.Sales),
+            0
+        );
+
+        const totalProfit = data.reduce(
+            (sum, row) => sum + Number(row.Profit),
+            0
+        );
+
+        const totalOrders = new Set(
+            data.map(row => row.Order_ID)
+        ).size;
+
+        const totalCustomers = new Set(
+            data.map(row => row.Customer_ID)
+        ).size;
+
+        document.getElementById("totalSales").textContent =
+            formatCurrency(totalSales);
+
+        document.getElementById("totalProfit").textContent =
+            formatCurrency(totalProfit);
+
+        document.getElementById("totalOrders").textContent =
+            totalOrders;
+
+        document.getElementById("totalCustomers").textContent =
+            totalCustomers;
+
+        /* ---------------- CATEGORY DATA ---------------- */
+
+        const categorySales = {};
+        const categoryProfit = {};
+
+        data.forEach(row => {
+
+            const category = row.Category;
+
+            categorySales[category] =
+                (categorySales[category] || 0) +
+                Number(row.Sales);
+
+            categoryProfit[category] =
+                (categoryProfit[category] || 0) +
+                Number(row.Profit);
+
+        });
+
+        const categoryLabels =
+            Object.keys(categorySales);
+
+        const categorySalesValues =
+            Object.values(categorySales);
+
+        const categoryProfitValues =
+            Object.values(categoryProfit);
+
+        /* ---------------- CITY DATA ---------------- */
+
+        const citySales = {};
+
+        data.forEach(row => {
+
+            const city = row.City;
+
+            citySales[city] =
+                (citySales[city] || 0) +
+                Number(row.Sales);
+
+        });
+
+        const cityEntries =
+            Object.entries(citySales)
+                .sort((a, b) => b[1] - a[1]);
+
+        const cityLabels =
+            cityEntries.map(item => item[0]);
+
+        const cityValues =
+            cityEntries.map(item => item[1]);
+
+        /* ---------------- MONTHLY DATA ---------------- */
+
+        const monthlySales = {};
+
+        data.forEach(row => {
+
+            const month = formatMonth(row.Order_Date);
+
+            monthlySales[month] =
+                (monthlySales[month] || 0) +
+                Number(row.Sales);
+
+        });
+
+        const monthOrder = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ];
+
+        const monthlyEntries =
+            Object.entries(monthlySales)
+                .sort(
+                    (a, b) =>
+                    monthOrder.indexOf(a[0]) -
+                    monthOrder.indexOf(b[0])
+                );
+
+        const monthlyLabels =
+            monthlyEntries.map(item => item[0]);
+
+        const monthlyValues =
+            monthlyEntries.map(item => item[1]);
+
+        /* ---------------- CHARTS ---------------- */
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        };
+
+        categoryChart = new Chart(
+            document.getElementById("categoryChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: categoryLabels,
+
+                    datasets: [{
+                        label: "Sales",
+                        data: categorySalesValues
+                    }]
+                },
+
+                options: commonOptions
+            }
+        );
+
+        cityChart = new Chart(
+            document.getElementById("cityChart"),
+            {
+                type: "bar",
+
+                data: {
+                    labels: cityLabels,
+
+                    datasets: [{
+                        label: "Sales",
+                        data: cityValues
+                    }]
+                },
+
+                options: commonOptions
+            }
+        );
+
+        monthlyChart = new Chart(
+            document.getElementById("monthlyChart"),
+            {
+                type: "line",
+
+                data: {
+                    labels: monthlyLabels,
+
+                    datasets: [{
+                        label: "Sales",
+                        data: monthlyValues,
+                        tension: 0.3,
+                        fill: false
+                    }]
+                },
+
+                options: commonOptions
+            }
+        );
+
+        profitChart = new Chart(
+            document.getElementById("profitChart"),
+            {
+                type: "doughnut",
+
+                data: {
+                    labels: categoryLabels,
+
+                    datasets: [{
+                        label: "Profit",
+                        data: categoryProfitValues
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            }
+        );
+
+        /* ---------------- INSIGHTS ---------------- */
+
+        const strongestCategory =
+            Object.entries(categorySales)
+                .sort((a, b) => b[1] - a[1])[0];
+
+        const strongestCity =
+            cityEntries[0];
+
+        const insightsList =
+            document.getElementById("insightsList");
+
+        insightsList.innerHTML = "";
+
+        const insights = [
+
+            `${strongestCategory[0]} generates the highest sales in the dataset.`,
+
+            `${strongestCity[0]} is the leading city by total sales.`,
+
+            `Total sales are ${formatCurrency(totalSales)} across ${totalOrders} orders.`,
+
+            `Total profit is ${formatCurrency(totalProfit)}, allowing profitability to be reviewed alongside revenue.`,
+
+            `Customer-level analysis can be used to identify repeat and high-value customers.`
+
+        ];
+
+        insights.forEach(text => {
+
+            const li =
+                document.createElement("li");
+
+            li.textContent = text;
+
+            insightsList.appendChild(li);
+
+        });
+
+        document.getElementById("loading").style.display =
+            "none";
+
+    }
+
+    catch (error) {
+
+        document.getElementById("loading").textContent =
+            "Error loading dashboard data. Make sure the dashboard is opened through GitHub Pages.";
+
+        console.error(error);
+
+    }
+
+}
+
+loadDashboard();
+
 </script>
+
 </body>
 </html>
